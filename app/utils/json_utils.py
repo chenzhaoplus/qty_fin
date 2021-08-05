@@ -10,7 +10,7 @@ def _obj_to_dict(obj):
 
 
 def ls_to_json(ls):
-    v = [x.to_dict() for x in ls]
+    v = [_obj_to_dict(x) for x in ls]
     return json.dumps(v)
 
 
