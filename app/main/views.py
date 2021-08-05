@@ -4,9 +4,9 @@ from flask import current_app
 
 from . import main
 from ..models import Product
-from ..my_encoder import MyEncoder
-from ..my_pymysql import UsingMysql
-from ..my_sqlalchemy import UsingAlchemy
+from app.utils.my_encoder import MyEncoder
+from app.utils.my_pymysql import UsingMysql
+from app.utils.my_sqlalchemy import UsingAlchemy
 from ..utils.json_utils import ls_to_json
 
 

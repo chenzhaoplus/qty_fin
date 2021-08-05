@@ -1,5 +1,5 @@
 import os
-from app.my_pymysql import DMysqlConfig
+from app.utils.my_pymysql import DMysqlConfig
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 

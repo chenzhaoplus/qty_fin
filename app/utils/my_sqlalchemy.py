@@ -2,7 +2,7 @@ from timeit import default_timer
 
 from sqlalchemy.orm import sessionmaker
 
-from . import db
+from app import db
 
 
 class UsingAlchemy(object):
