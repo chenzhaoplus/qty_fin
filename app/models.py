@@ -1,6 +1,8 @@
 from . import db
+from .utils.json_utils import json_able
 
 
+@json_able
 class Product(db.Model):
     __tablename__ = 'Product'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
