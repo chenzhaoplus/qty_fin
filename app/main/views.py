@@ -8,6 +8,7 @@ from app.utils.my_encoder import MyEncoder
 from app.utils.my_pymysql import UsingMysql
 from app.utils.my_sqlalchemy import UsingAlchemy
 from ..utils.json_utils import ls_to_json
+from ..run_crawl import run_crawl
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -43,3 +44,10 @@ def findFirstProduct():
         obj = ua.session.query(Product).first()
 
     return obj.to_dict()
+
+
+@main.route("/runCrawl", methods=['POST'])
+def runCrawl():
+    run_crawl()
+    print('runCrawl success')
+    return 'success'
