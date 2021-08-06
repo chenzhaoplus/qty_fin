@@ -2,13 +2,13 @@ import json
 
 from flask import current_app
 
+from app.utils.my_encoder import MyEncoder
+from app.utils.my_pymysql import UsingMysql, init_dbconfig
+from app.utils.my_sqlalchemy import UsingAlchemy
 from . import main
 from ..models import Product
-from app.utils.my_encoder import MyEncoder
-from app.utils.my_pymysql import UsingMysql
-from app.utils.my_sqlalchemy import UsingAlchemy
-from ..utils.json_utils import ls_to_json
 from ..run_crawl import run_crawl
+from ..utils.json_utils import ls_to_json
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -51,3 +51,23 @@ def runCrawl():
     run_crawl()
     print('runCrawl success')
     return 'success'
+
+
+@main.route("/findStockBySql", methods=['POST'])
+def findStockBySql():
+    with UsingMysql() as um:
+        sql = """
+            SELECT
+                *
+            FROM
+                `test_stock_2021_08_06`
+            WHERE
+                `最新价` <= %s AND `总市值-数` >= %s
+                AND `公司内在价值-净利润` <> ''
+                AND `公司内在价值-营收` <> ''
+            ORDER BY
+                cast( `公司内在价值-净利润` AS DECIMAL(20,3) ) DESC
+        """
+        params = [30, 500 * 100000000]
+        ls = um.fetch_all(sql, params)
+    return json.dumps(ls)

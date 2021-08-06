@@ -7,7 +7,7 @@ with UsingMysql(db_config=init_dbconfig()) as um:
         FROM
             `test_stock_2021_08_06`
         WHERE
-            cast( `最新价` AS DECIMAL(20, 3) ) <= %s AND cast( `总市值-数` AS DECIMAL(20, 3) ) >= %s
+            `最新价` <= %s AND `总市值-数` >= %s
             AND `公司内在价值-净利润` <> ''
             AND `公司内在价值-营收` <> ''
         ORDER BY
