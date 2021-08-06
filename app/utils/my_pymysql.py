@@ -24,6 +24,7 @@ class DMysqlConfig:
         :param passwd:密码
         :param charset:字符编码
     """
+
     def __init__(self, host, db, user, password, port=3306):
         self.host = host
         self.port = port
@@ -95,8 +96,7 @@ class UsingMysql(object):
         self._log_time = log_time
         self._commit = commit
         self._log_label = log_label
-        if not db_config:
-            db_config = current_app.config.get("DB_CONFIG")
+        db_config = db_config if db_config else current_app.config.get("DB_CONFIG")
         self._g_pool_connection = DMysqlPoolConn(db_config)
 
     def __enter__(self):
@@ -157,3 +157,7 @@ class UsingMysql(object):
     @property
     def conn(self):
         return self._conn
+
+
+def init_dbconfig(db_host='v81', db_port=3306, db_name='python_crawl', db_user='root', db_pwd='123456'):
+    return DMysqlConfig(db_host, db_name, db_user, db_pwd, db_port)

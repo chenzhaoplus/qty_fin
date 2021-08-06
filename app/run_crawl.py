@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from sqlalchemy import types
 
@@ -7,11 +9,9 @@ import app.crawl.dfcf.detail_crawl as detail
 import app.crawl.dfcf.finance_crawl as finance
 import app.utils.constants as const
 import app.utils.date_utils as du
-from app.utils.my_sqlalchemy import UsingAlchemy
-from app.utils.my_sqlalchemy import init_engine
-from .crawl.browser_pool import BrowserPool
+from app.crawl.browser_pool import BrowserPool
 from app.utils.async_utils import async_able
-import os
+from app.utils.my_sqlalchemy import init_engine
 
 # cur_year = du.get_cur_date("%Y")
 cur_year = '2021'
@@ -20,7 +20,6 @@ cur_year = '2021'
 cur_m_d = du.get_cur_date("%m-%d")
 
 cur_y_m_d = f'{cur_year}-{cur_m_d}'
-
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -57,38 +56,37 @@ def analysis_crawl(type_name, pool):
 
 
 def mysql_crawl(pls):
-    with UsingAlchemy(engine=init_engine(), log_label='数据库操作耗时') as ms:
-        cat_ls = []
-        for p in pls:
-            read_file = analysis_file(p[0])
-            data = pd.read_csv(read_file, dtype='object')  # dtype='object' 读取时转成字符串
-            cat_ls.append(data)
-        merge = pd.concat(cat_ls, ignore_index=True)
-        # merge.loc[merge['营收同比率'] == '-'] = ''
-        # merge.loc[merge['净利润同比'] == '-'] = ''
-        # merge["股票代码"] = np.where(len(merge.股票代码) < 6, str(merge.股票代码).zfill(6), merge.股票代码)
-        # print(merge)
-        merge.to_sql(f'test_stock_{cur_y_m_d.replace("-", "_")}', con=ms.engine, index_label=['id'],
-                     if_exists='replace',
-                     dtype={
-                         'id': types.BigInteger,
-                         const.gpdm: types.VARCHAR(10),
-                         const.gpmc: types.VARCHAR(10),
-                         const.zxj: types.VARCHAR(10),
-                         const.zsz: types.VARCHAR(20),
-                         const.zsz_d: types.VARCHAR(20),
-                         const.mgsy: types.VARCHAR(20),
-                         const.zzc: types.VARCHAR(20),
-                         const.zzc_d: types.VARCHAR(20),
-                         const.zfz: types.VARCHAR(20),
-                         const.zfz_d: types.VARCHAR(20),
-                         const.gdqyhj: types.VARCHAR(20),
-                         const.gdqyhj_d: types.VARCHAR(20),
-                         const.jlrtb: types.VARCHAR(20),
-                         const.ystbl: types.VARCHAR(20),
-                         const.gsnzjz_jlr: types.VARCHAR(20),
-                         const.gsnzjz_ys: types.VARCHAR(20),
-                     })
+    cat_ls = []
+    for p in pls:
+        read_file = analysis_file(p[0])
+        data = pd.read_csv(read_file, dtype='object')  # dtype='object' 读取时转成字符串
+        cat_ls.append(data)
+    df = pd.concat(cat_ls, ignore_index=True)
+    # df.loc[df['营收同比率'] == '-'] = ''
+    # df.loc[df['净利润同比'] == '-'] = ''
+    # df["股票代码"] = np.where(len(df.股票代码) < 6, str(df.股票代码).zfill(6), df.股票代码)
+    # print(df)
+    df.to_sql(f'test_stock_{cur_y_m_d.replace("-", "_")}', con=init_engine(), index_label=['id'],
+              if_exists='replace',
+              dtype={
+                  'id': types.BigInteger,
+                  const.gpdm: types.VARCHAR(10),
+                  const.gpmc: types.VARCHAR(10),
+                  const.zxj: types.VARCHAR(10),
+                  const.zsz: types.VARCHAR(20),
+                  const.zsz_d: types.VARCHAR(20),
+                  const.mgsy: types.VARCHAR(20),
+                  const.zzc: types.VARCHAR(20),
+                  const.zzc_d: types.VARCHAR(20),
+                  const.zfz: types.VARCHAR(20),
+                  const.zfz_d: types.VARCHAR(20),
+                  const.gdqyhj: types.VARCHAR(20),
+                  const.gdqyhj_d: types.VARCHAR(20),
+                  const.jlrtb: types.VARCHAR(20),
+                  const.ystbl: types.VARCHAR(20),
+                  const.gsnzjz_jlr: types.VARCHAR(20),
+                  const.gsnzjz_ys: types.VARCHAR(20),
+              })
 
 
 @async_able
@@ -112,12 +110,12 @@ def run_crawl():
         # (const.type_name_software, const.code_url_software),
     ]
 
-    with BrowserPool(6) as b_pool:
-        for par in par_ls:
-            code_crawl(par[0], par[1], b_pool)
-            detail_crawl(par[0], b_pool)
-            finance_crawl(par[0], b_pool)
-            analysis_crawl(par[0], b_pool)
+    # with BrowserPool(6) as b_pool:
+    #     for par in par_ls:
+    #         code_crawl(par[0], par[1], b_pool)
+    #         detail_crawl(par[0], b_pool)
+    #         finance_crawl(par[0], b_pool)
+    #         analysis_crawl(par[0], b_pool)
 
     mysql_crawl(par_ls)
 
