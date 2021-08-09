@@ -19,7 +19,7 @@ def get_cnt_sql(sql, cnt_key='count(1)'):
 
 def get_page_sql(request, sql):
     if not request:
-        raise ValueError("request must be not null")
+        raise ValueError("request must not be null")
     form_json = request.json
     page_num = form_json['pageNum'] if form_json['pageNum'] else 1
     page_size = form_json['pageSize'] if form_json['pageSize'] else 10
