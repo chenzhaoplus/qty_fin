@@ -68,6 +68,6 @@ def findStockBySql():
             ORDER BY
                 cast( `公司内在价值-净利润` AS DECIMAL(20,3) ) DESC
         """
-        params = [30, 500 * 100000000]
+        params = [30, 500 * 100000000]  # pymysql只支持任何类型参数都用 %s 注入
         ls = um.fetch_all(sql, params)
     return json.dumps(ls)
