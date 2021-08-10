@@ -58,10 +58,15 @@ def runCrawl():
 
 @main.route("/findStockBySql", methods=['POST'])
 def findStockBySql():
+    form_json = request.json
+    stock_name = form_json.get("stockName")
+    stock_code = form_json.get("stockCode")
     with UsingMysql() as um:
-        params = [30, 500 * 100000000]
-        ls = um.fetch_all(get_page_sql(request, mapper.findStockBySql), params)
-        cnt = um.get_count(get_cnt_sql(mapper.findStockBySql), params, count_key='count(1)')
+        params = [30, 500 * 100000000,
+                  f'%{stock_name}%', stock_name,
+                  f'%{stock_code}%', stock_code]
+        ls = um.fetch_all(get_page_sql(request, mapper.findStockBySql()), params)
+        cnt = um.get_count(get_cnt_sql(mapper.findStockBySql()), params, count_key='count(1)')
     return {
         "content": ls,
         "totalElements": cnt
