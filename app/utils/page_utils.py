@@ -1,3 +1,6 @@
+import app.utils.constants as const
+
+
 def get_page_params(request, sql):
     if not request:
         raise ValueError("request must be not null")
@@ -24,7 +27,8 @@ def get_page_sql(request, sql):
     page_num = form_json['pageNum'] if form_json['pageNum'] else 1
     page_size = form_json['pageSize'] if form_json['pageSize'] else 10
     order = form_json.get('order') if form_json.get('order') else 'desc'
-    sort = form_json.get('sort') if form_json.get('sort') else 'cast( `公司内在价值-净利润` AS DECIMAL(20,3) )'
+    # sort = form_json.get('sort') if form_json.get('sort') else f'cast( {const.gsnzjz_jlr[1]} AS DECIMAL(20,3) )'
+    sort = form_json.get('sort') if form_json.get('sort') else const.gsnzjz_jlr[1]
     ret = f'''
         select * from ({sql}) t
         order by {sort} {order}

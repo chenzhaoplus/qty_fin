@@ -87,10 +87,10 @@ class AnalysisCrawl(Crawl):
             self._gsnzjz_jlr = None
             self._gsnzjz_ys = None
         print(
-            f'[分析数据], {const.gpdm}={self._code}, {const.gpmc}={self._name}, {const.zxj}={self._price}, '
-            f'{const.zsz}={self._total_price}, {const.mgsy}={self._mgsy}, '
-            f'{const.jlrtb}={self._jlrtb}, {const.ystbl}={self._ystbl}, '
-            f'{const.gsnzjz_jlr}={self._gsnzjz_jlr}, {const.gsnzjz_ys}={self._gsnzjz_ys}')
+            f'[分析数据], {const.gpdm[0]}={self._code}, {const.gpmc[0]}={self._name}, {const.zxj[0]}={self._price}, '
+            f'{const.zsz[0]}={self._total_price}, {const.mgsy[0]}={self._mgsy}, '
+            f'{const.jlrtb[0]}={self._jlrtb}, {const.ystbl[0]}={self._ystbl}, '
+            f'{const.gsnzjz_jlr[0]}={self._gsnzjz_jlr}, {const.gsnzjz_ys[0]}={self._gsnzjz_ys}')
 
     def store_data(self, f_name=None, data=None, by=None, ascending=False):
         pass
@@ -98,34 +98,34 @@ class AnalysisCrawl(Crawl):
     def run(self, b=None):
         self.parse_data(b)
         return {
-            const.gpdm: self._code,
-            const.gpmc: self._name,
-            const.type_name_col: self._type_name,
-            const.zxj: self._price,
-            const.zsz: self._total_price,
-            const.zsz_d: self._total_price_d,
-            const.mgsy: self._mgsy,
-            const.roe: self._roe,
-            const.cjl_hand: self._cjl_hand,
-            const.syl_dynamic: self._syl_dy,
-            const.zzc: self._zzc,
-            const.zzc_d: self._zzc_d,
-            const.zfz: self._zfz,
-            const.zfz_d: self._zfz_d,
-            const.gdqyhj: self._gdqyhj,
-            const.gdqyhj_d: self._gdqyhj_d,
-            const.jlrtb: self._jlrtb,
-            const.ystbl: self._ystbl,
-            const.zys: self._zys,
-            const.zys_d: self._zys_d,
-            const.zlr: self._zlr,
-            const.zlr_d: self._zlr_d,
-            const.jlr: self._jlr,
-            const.jlr_d: self._jlr_d,
-            const.ldbl: self._ldbl,
-            const.sdbl: self._sdbl,
-            const.gsnzjz_jlr: self._gsnzjz_jlr,
-            const.gsnzjz_ys: self._gsnzjz_ys,
+            'gpdm': self._code,
+            const.gpmc[1]: self._name,
+            const.gplx[1]: self._type_name,
+            const.zxj[1]: self._price,
+            const.zsz[1]: self._total_price,
+            const.zsz_d[1]: self._total_price_d,
+            const.mgsy[1]: self._mgsy,
+            const.roe[1]: self._roe,
+            const.cjl_hand[1]: self._cjl_hand,
+            const.syl_dynamic[1]: self._syl_dy,
+            const.zzc[1]: self._zzc,
+            const.zzc_d[1]: self._zzc_d,
+            const.zfz[1]: self._zfz,
+            const.zfz_d[1]: self._zfz_d,
+            const.gdqyhj[1]: self._gdqyhj,
+            const.gdqyhj_d[1]: self._gdqyhj_d,
+            const.jlrtb[1]: self._jlrtb,
+            const.ystbl[1]: self._ystbl,
+            const.zys[1]: self._zys,
+            const.zys_d[1]: self._zys_d,
+            const.zlr[1]: self._zlr,
+            const.zlr_d[1]: self._zlr_d,
+            const.jlr[1]: self._jlr,
+            const.jlr_d[1]: self._jlr_d,
+            const.ldbl[1]: self._ldbl,
+            const.sdbl[1]: self._sdbl,
+            const.gsnzjz_jlr[1]: self._gsnzjz_jlr,
+            const.gsnzjz_ys[1]: self._gsnzjz_ys,
         }
 
 
@@ -170,7 +170,7 @@ def get_task_queue(read_file, type_name=''):
     return tasks
 
 
-def store_data(f_name='res/股票分析信息.csv', data=None, by='公司内在价值-营收', ascending=False):
+def store_data(f_name='res/股票分析信息.csv', data=None, by=const.gsnzjz_ys[1], ascending=False):
     if data is None:
         raise ValueError("argument data cannot be null!")
     df = pd.DataFrame(data)

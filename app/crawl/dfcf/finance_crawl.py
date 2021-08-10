@@ -92,14 +92,14 @@ class FinanceCrawl(Crawl):
 
     def parse_data(self, b):
         time.sleep(1)
-        ldbl = b.find_elements_by_xpath(f'//span[text()="{const.ldbl}"]/parent::td/following-sibling::td[1]/span')
-        sdbl = b.find_elements_by_xpath(f'//span[text()="{const.sdbl}"]/parent::td/following-sibling::td[1]/span')
+        ldbl = b.find_elements_by_xpath(f'//span[text()="{const.ldbl[0]}"]/parent::td/following-sibling::td[1]/span')
+        sdbl = b.find_elements_by_xpath(f'//span[text()="{const.sdbl[0]}"]/parent::td/following-sibling::td[1]/span')
         self._ldbl = ldbl[0].text if ldbl else ''
         self._sdbl = sdbl[0].text if sdbl else ''
         print(
-            f'[财务数据], {const.gpdm}={self._code}, {const.gpmc}={self._name}, {const.zxj}={self._price}, '
-            f'{const.zsz}={self._total_price}, {const.mgsy}={self._mgsy}, '
-            f'{const.jlrtb}={self._jlrtb}, {const.ystbl}={self._ystbl}')
+            f'[财务数据], {const.gpdm[0]}={self._code}, {const.gpmc[0]}={self._name}, {const.zxj[0]}={self._price}, '
+            f'{const.zsz[0]}={self._total_price}, {const.mgsy[0]}={self._mgsy}, '
+            f'{const.jlrtb[0]}={self._jlrtb}, {const.ystbl[0]}={self._ystbl}')
 
     def store_data(self, f_name=None, data=None, by=None, ascending=False):
         pass
@@ -108,24 +108,24 @@ class FinanceCrawl(Crawl):
         self.get_url(b)
         self.parse_data(b)
         return {
-            const.gpdm: self._code,
-            const.gpmc: self._name,
-            const.zxj: self._price,
-            const.zsz: self._total_price,
-            const.mgsy: self._mgsy,
-            const.zzc: self._zzc,
-            const.zfz: self._zfz,
-            const.gdqyhj: self._gdqyhj,
-            const.jlrtb: self._jlrtb,
-            const.ystbl: self._ystbl,
-            const.zys: self._zys,
-            const.zlr: self._zlr,
-            const.jlr: self._jlr,
-            const.roe: self._roe,
-            const.cjl_hand: self._cjl_hand,
-            const.syl_dynamic: self._syl_dy,
-            const.ldbl: self._ldbl,
-            const.sdbl: self._sdbl,
+            const.gpdm[0]: self._code,
+            const.gpmc[0]: self._name,
+            const.zxj[0]: self._price,
+            const.zsz[0]: self._total_price,
+            const.mgsy[0]: self._mgsy,
+            const.zzc[0]: self._zzc,
+            const.zfz[0]: self._zfz,
+            const.gdqyhj[0]: self._gdqyhj,
+            const.jlrtb[0]: self._jlrtb,
+            const.ystbl[0]: self._ystbl,
+            const.zys[0]: self._zys,
+            const.zlr[0]: self._zlr,
+            const.jlr[0]: self._jlr,
+            const.roe[0]: self._roe,
+            const.cjl_hand[0]: self._cjl_hand,
+            const.syl_dynamic[0]: self._syl_dy,
+            const.ldbl[0]: self._ldbl,
+            const.sdbl[0]: self._sdbl,
         }
 
 
@@ -173,7 +173,7 @@ def get_task_queue(read_file):
     return tasks
 
 
-def store_data(f_name='res/股票财务信息.csv', data=None, by='每股收益', ascending=False):
+def store_data(f_name='res/股票财务信息.csv', data=None, by=const.mgsy[0], ascending=False):
     if data is None:
         raise ValueError("argument data cannot be null!")
     df = pd.DataFrame(data)

@@ -3,17 +3,18 @@ import app.utils.constants as const
 
 def findStockBySql():
     return f"""
-        SELECT
-            *
-        FROM
-            `{const.TABLE_PREFIX}_2021_07_31`
-        WHERE
-            (`最新价` <= %s or %s = '')
-            AND (`总市值-数` >= %s or %s = '')
-            AND (`股票名称` like %s or %s = '')
-            AND (`股票代码` like %s or %s = '')
-            AND (`股票类型` = %s or %s = '')
-    """
+            SELECT
+                *
+            FROM
+                `{const.TABLE_PREFIX}_2021_07_31`
+            WHERE
+                (zxj <= %s or %s = '')
+                AND (zsz_d >= %s or %s = '')
+                AND (gpmc like %s or %s = '')
+                AND (gpdm like %s or %s = '')
+                AND (gplx = %s or %s = '')
+        """
+
 
 # """
 #             ORDER BY

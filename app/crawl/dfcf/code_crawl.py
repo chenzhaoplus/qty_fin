@@ -43,11 +43,11 @@ class CodeCrawl(Crawl):
         print(f'分析数据第{pn}页')
         time.sleep(2)
         data = {
-            const.gpdm: [],
-            const.gpmc: [],
-            const.zxj: [],
-            const.cjl_hand: [],
-            const.syl_dynamic: [],
+            const.gpdm[0]: [],
+            const.gpmc[0]: [],
+            const.zxj[0]: [],
+            const.cjl_hand[0]: [],
+            const.syl_dynamic[0]: [],
         }
         code_list = b.find_elements_by_xpath('//*[@id="table_wrapper-table"]/tbody/tr/td[2]')
         name_list = b.find_elements_by_xpath('//*[@id="table_wrapper-table"]/tbody/tr/td[3]')
@@ -55,19 +55,19 @@ class CodeCrawl(Crawl):
         cjl_hand_list = b.find_elements_by_xpath('//*[@id="table_wrapper-table"]/tbody/tr/td[8]')
         syl_dy_list = b.find_elements_by_xpath('//*[@id="table_wrapper-table"]/tbody/tr/td[17]')
         for code in code_list:
-            data[const.gpdm].append(code.text)
+            data[const.gpdm[0]].append(code.text)
         for name in name_list:
-            data[const.gpmc].append(name.text)
+            data[const.gpmc[0]].append(name.text)
         for price in price_list:
-            data[const.zxj].append(price.text)
+            data[const.zxj[0]].append(price.text)
         for cjl in cjl_hand_list:
-            data[const.cjl_hand].append(cjl.text)
+            data[const.cjl_hand[0]].append(cjl.text)
         for syl in syl_dy_list:
-            data[const.syl_dynamic].append(syl.text)
+            data[const.syl_dynamic[0]].append(syl.text)
         print(f'分页数据第{pn}页, 分析后数据 = {data}')
         return data
 
-    def store_data(self, f_name='res/股票基本信息.csv', data=None, by=const.gpdm, ascending=True):
+    def store_data(self, f_name='res/股票基本信息.csv', data=None, by=const.gpdm[0], ascending=True):
         if data is None:
             raise ValueError("argument data cannot be null!")
         df = pd.DataFrame(data)
@@ -132,20 +132,20 @@ def get_data_by_thread(pn, crawl):
 
 
 def concat_data(maps, data):
-    maps[const.gpdm] = maps[const.gpdm] + data[const.gpdm]
-    maps[const.gpmc] = maps[const.gpmc] + data[const.gpmc]
-    maps[const.zxj] = maps[const.zxj] + data[const.zxj]
-    maps[const.cjl_hand] = maps[const.cjl_hand] + data[const.cjl_hand]
-    maps[const.syl_dynamic] = maps[const.syl_dynamic] + data[const.syl_dynamic]
+    maps[const.gpdm[0]] = maps[const.gpdm[0]] + data[const.gpdm[0]]
+    maps[const.gpmc[0]] = maps[const.gpmc[0]] + data[const.gpmc[0]]
+    maps[const.zxj[0]] = maps[const.zxj[0]] + data[const.zxj[0]]
+    maps[const.cjl_hand[0]] = maps[const.cjl_hand[0]] + data[const.cjl_hand[0]]
+    maps[const.syl_dynamic[0]] = maps[const.syl_dynamic[0]] + data[const.syl_dynamic[0]]
 
 
 def init_maps():
     return {
-        const.gpdm: [],
-        const.gpmc: [],
-        const.zxj: [],
-        const.cjl_hand: [],
-        const.syl_dynamic: [],
+        const.gpdm[0]: [],
+        const.gpmc[0]: [],
+        const.zxj[0]: [],
+        const.cjl_hand[0]: [],
+        const.syl_dynamic[0]: [],
     }
 
 

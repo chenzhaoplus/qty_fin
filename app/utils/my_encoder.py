@@ -1,3 +1,4 @@
+import decimal
 import json
 import numpy as np
 
@@ -12,5 +13,7 @@ class MyEncoder(json.JSONEncoder):
             return obj.tolist()
         elif isinstance(obj, bytes):
             return str(obj, encoding='utf-8')
+        elif isinstance(obj, decimal.Decimal):
+            return float(obj)
         else:
             return super(MyEncoder, self).default(obj)

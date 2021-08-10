@@ -1,38 +1,34 @@
 """
-表字段中文表头
+表字段
 """
-gpdm = '股票代码'
-gpmc = '股票名称'
-zxj = '最新价'
-zsz = '总市值'
-zsz_d = '总市值-数'
-mgsy = '每股收益'
-jlrtb = '净利润同比'
-zys = '总营收'
-zys_d = '总营收-数'
-zlr = '总利润'
-zlr_d = '总利润-数'
-jlr = '净利润'
-jlr_d = '净利润-数'
-ystbl = '营收同比率'
-gsnzjz_jlr = '公司内在价值-净利润'
-gsnzjz_ys = '公司内在价值-营收'
-zzc = '总资产'
-zzc_d = '总资产-数'
-zfz = '总负债'
-zfz_d = '总负债-数'
-gdqyhj = '股东权益合计'
-gdqyhj_d = '股东权益合计-数'
-roe = '净资产收益率-ROE'
-syl_dynamic = '市盈率-动态'
-cjl_hand = '成交量-手'
-ldbl = '流动比率'
-sdbl = '速动比率'
-
-"""
-爬虫地址
-"""
-type_name_col = '股票类型'
+gpdm = ('股票代码', 'gpdm')
+gpmc = ('股票名称', 'gpmc')
+zxj = ('最新价', 'zxj')
+zsz = ('总市值', 'zsz')
+zsz_d = ('总市值-数', 'zsz_d')
+mgsy = ('每股收益', 'mgsy')
+jlrtb = ('净利润同比', 'jlrtb')
+zys = ('总营收', 'zys')
+zys_d = ('总营收-数', 'zys_d')
+zlr = ('总利润', 'zlr')
+zlr_d = ('总利润-数', 'zlr_d')
+jlr = ('净利润', 'jlr')
+jlr_d = ('净利润-数', 'jlr_d')
+ystbl = ('营收同比率', 'ystbl')
+gsnzjz_jlr = ('公司内在价值-净利润', 'gsnzjz_jlr')
+gsnzjz_ys = ('公司内在价值-营收', 'gsnzjz_ys')
+zzc = ('总资产', 'zzc')
+zzc_d = ('总资产-数', 'zzc_d')
+zfz = ('总负债', 'zfz')
+zfz_d = ('总负债-数', 'zfz_d')
+gdqyhj = ('股东权益合计', 'gdqyhj')
+gdqyhj_d = ('股东权益合计-数', 'gdqyhj_d')
+roe = ('净资产收益率-ROE', 'roe')
+syl_dynamic = ('市盈率-动态', 'syl_dynamic')
+cjl_hand = ('成交量-手', 'cjl_hand')
+ldbl = ('流动比率', 'ldbl')
+sdbl = ('速动比率', 'sdbl')
+gplx = ('股票类型', 'gplx')
 
 type_name_5g = '5G概念'
 code_url_5g = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0714'
@@ -82,6 +78,4 @@ TEN_THOUSAND = '万'
 THOUSAND = '千'
 HUNDRED = '百'
 
-
 TABLE_PREFIX = "stock_info"
-

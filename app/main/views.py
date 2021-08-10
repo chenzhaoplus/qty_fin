@@ -12,29 +12,30 @@ from ..models import Product
 from ..run_crawl import run_crawl
 from ..sql import mapper
 from ..utils.json_utils import ls_to_json
+import app.utils.constants as const
 
 
 @main.route("/findStockBySql", methods=['POST'])
 def findStockBySql():
     form_json = request.json
-    stock_name = form_json.get("stockName")
-    stock_code = form_json.get("stockCode")
-    stock_type = form_json.get("stockType")
+    gpmc = form_json.get(const.gpmc[1])
+    gpdm = form_json.get(const.gpdm[1])
+    gplx = form_json.get(const.gplx[1])
     sql = mapper.findStockBySql()
     count_key = 'count(1)'
     with UsingMysql() as um:
         params = [30, 30,
                   500 * 100000000, 500 * 100000000,
-                  f'%{stock_name}%', stock_name,
-                  f'%{stock_code}%', stock_code,
-                  stock_type, stock_type]
+                  f'%{gpmc}%', gpmc,
+                  f'%{gpdm}%', gpdm,
+                  gplx, gplx]
         print(f'params: {params}')
         ls = um.fetch_all(get_page_sql(request, sql), params)
         cnt = um.get_count(get_cnt_sql(sql, count_key), params, count_key=count_key)
-    return {
+    return json.dumps({
         "content": ls,
         "totalElements": cnt
-    }
+    }, cls=MyEncoder)
 
 
 @main.route('/', methods=['GET', 'POST'])

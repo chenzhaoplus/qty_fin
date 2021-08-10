@@ -16,8 +16,8 @@ from app.utils.my_sqlalchemy import init_engine
 # cur_year = du.get_cur_date("%Y")
 cur_year = '2021'
 
-# cur_m_d = '07-31'
-cur_m_d = du.get_cur_date("%m-%d")
+cur_m_d = '07-31'
+# cur_m_d = du.get_cur_date("%m-%d")
 
 cur_y_m_d = f'{cur_year}-{cur_m_d}'
 
@@ -52,7 +52,7 @@ def finance_crawl(type_name, pool):
 def analysis_crawl(type_name, pool):
     read_file = basic_file(type_name)
     write_file = analysis_file(type_name)
-    analysis.begin_crawl(read_file, write_file, pool, by=const.gsnzjz_jlr, type_name=type_name)
+    analysis.begin_crawl(read_file, write_file, pool, by=const.gsnzjz_jlr[1], type_name=type_name)
 
 
 def mysql_crawl(pls):
@@ -70,22 +70,23 @@ def mysql_crawl(pls):
               if_exists='replace',
               dtype={
                   'id': types.BigInteger,
-                  const.gpdm: types.VARCHAR(10),
-                  const.gpmc: types.VARCHAR(10),
-                  const.zxj: types.VARCHAR(10),
-                  const.zsz: types.VARCHAR(20),
-                  const.zsz_d: types.VARCHAR(20),
-                  const.mgsy: types.VARCHAR(20),
-                  const.zzc: types.VARCHAR(20),
-                  const.zzc_d: types.VARCHAR(20),
-                  const.zfz: types.VARCHAR(20),
-                  const.zfz_d: types.VARCHAR(20),
-                  const.gdqyhj: types.VARCHAR(20),
-                  const.gdqyhj_d: types.VARCHAR(20),
-                  const.jlrtb: types.VARCHAR(20),
-                  const.ystbl: types.VARCHAR(20),
-                  const.gsnzjz_jlr: types.VARCHAR(20),
-                  const.gsnzjz_ys: types.VARCHAR(20),
+                  const.zsz_d[1]: types.DECIMAL(20, 3),
+                  const.mgsy[1]: types.DECIMAL(8, 3),
+                  const.syl_dynamic[1]: types.DECIMAL(8, 3),
+                  const.zzc_d[1]: types.DECIMAL(20, 3),
+                  const.zfz_d[1]: types.DECIMAL(20, 3),
+                  const.gdqyhj_d[1]: types.DECIMAL(20, 3),
+                  const.zys_d[1]: types.DECIMAL(20, 3),
+                  const.zlr_d[1]: types.DECIMAL(20, 3),
+                  const.jlr_d[1]: types.DECIMAL(20, 3),
+                  const.ldbl[1]: types.DECIMAL(8, 3),
+                  const.sdbl[1]: types.DECIMAL(8, 3),
+                  const.gsnzjz_ys[1]: types.DECIMAL(8, 3),
+                  const.gsnzjz_jlr[1]: types.DECIMAL(8, 3),
+                  # const.zxj[1]: types.DECIMAL(20, 3),
+                  # const.roe[1]: types.DECIMAL(8, 3),
+                  # const.jlrtb[1]: types.DECIMAL(8, 3),
+                  # const.ystbl[1]: types.DECIMAL(8, 3),
               })
 
 
@@ -95,27 +96,27 @@ def run_crawl():
     print(f'basedir = {basedir} \n')
 
     par_ls = [
-        # (const.type_name_5g, const.code_url_5g),
-        # (const.type_name_bank, const.code_url_bank),
-        # (const.type_name_broker, const.code_url_broker),
-        # (const.type_name_car, const.code_url_car),
-        # (const.type_name_charging, const.code_url_charging),
-        # (const.type_name_eletric, const.code_url_eletric),
-        # (const.type_name_environment, const.code_url_environment),
-        # (const.type_name_food, const.code_url_food),
+        (const.type_name_5g, const.code_url_5g),
+        (const.type_name_bank, const.code_url_bank),
+        (const.type_name_broker, const.code_url_broker),
+        (const.type_name_car, const.code_url_car),
+        (const.type_name_charging, const.code_url_charging),
+        (const.type_name_eletric, const.code_url_eletric),
+        (const.type_name_environment, const.code_url_environment),
+        (const.type_name_food, const.code_url_food),
         (const.type_name_insure, const.code_url_insure),
-        # (const.type_name_medical, const.code_url_medical),
-        # (const.type_name_medicine, const.code_url_medicine),
-        # (const.type_name_security, const.code_url_security),
-        # (const.type_name_software, const.code_url_software),
+        (const.type_name_medical, const.code_url_medical),
+        (const.type_name_medicine, const.code_url_medicine),
+        (const.type_name_security, const.code_url_security),
+        (const.type_name_software, const.code_url_software),
     ]
 
-    # with BrowserPool(6) as b_pool:
-    #     for par in par_ls:
-    #         code_crawl(par[0], par[1], b_pool)
-    #         detail_crawl(par[0], b_pool)
-    #         finance_crawl(par[0], b_pool)
-    #         analysis_crawl(par[0], b_pool)
+    with BrowserPool(6) as b_pool:
+        for par in par_ls:
+            code_crawl(par[0], par[1], b_pool)
+            detail_crawl(par[0], b_pool)
+            finance_crawl(par[0], b_pool)
+            analysis_crawl(par[0], b_pool)
 
     mysql_crawl(par_ls)
 

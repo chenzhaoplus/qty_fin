@@ -105,9 +105,9 @@ class DetailCrawl(Crawl):
         self._jlr = jlr[0].text if jlr else ''
         self._roe = roe[0].text if roe else ''
         print(
-            f'[详细数据], {const.gpdm}={self._code}, {const.gpmc}={self._name}, {const.zxj}={self._price}, '
-            f'{const.zsz}={self._total_price}, {const.mgsy}={self._mgsy}, '
-            f'{const.jlrtb}={self._jlrtb}, {const.ystbl}={self._ystbl}')
+            f'[详细数据], {const.gpdm[0]}={self._code}, {const.gpmc[0]}={self._name}, {const.zxj[0]}={self._price}, '
+            f'{const.zsz[0]}={self._total_price}, {const.mgsy[0]}={self._mgsy}, '
+            f'{const.jlrtb[0]}={self._jlrtb}, {const.ystbl[0]}={self._ystbl}')
 
     def store_data(self, f_name=None, data=None, by=None, ascending=False):
         pass
@@ -116,22 +116,22 @@ class DetailCrawl(Crawl):
         self.get_url(b)
         self.parse_data(b)
         return {
-            const.gpdm: self._code,
-            const.gpmc: self._name,
-            const.zxj: self._price,
-            const.zsz: self._total_price,
-            const.mgsy: self._mgsy,
-            const.zzc: self._zzc,
-            const.zfz: self._zfz,
-            const.gdqyhj: self._gdqyhj,
-            const.jlrtb: self._jlrtb,
-            const.ystbl: self._ystbl,
-            const.zys: self._zys,
-            const.zlr: self._zlr,
-            const.jlr: self._jlr,
-            const.roe: self._roe,
-            const.cjl_hand: self._cjl_hand,
-            const.syl_dynamic: self._syl_dy,
+            const.gpdm[0]: self._code,
+            const.gpmc[0]: self._name,
+            const.zxj[0]: self._price,
+            const.zsz[0]: self._total_price,
+            const.mgsy[0]: self._mgsy,
+            const.zzc[0]: self._zzc,
+            const.zfz[0]: self._zfz,
+            const.gdqyhj[0]: self._gdqyhj,
+            const.jlrtb[0]: self._jlrtb,
+            const.ystbl[0]: self._ystbl,
+            const.zys[0]: self._zys,
+            const.zlr[0]: self._zlr,
+            const.jlr[0]: self._jlr,
+            const.roe[0]: self._roe,
+            const.cjl_hand[0]: self._cjl_hand,
+            const.syl_dynamic[0]: self._syl_dy,
         }
 
 
@@ -180,7 +180,7 @@ def get_task_queue(read_file):
     return tasks
 
 
-def store_data(f_name='res/股票详细信息.csv', data=None, by='每股收益', ascending=False):
+def store_data(f_name='res/股票详细信息.csv', data=None, by=const.mgsy[0], ascending=False):
     if data is None:
         raise ValueError("argument data cannot be null!")
     df = pd.DataFrame(data)
