@@ -38,6 +38,17 @@ def findStockBySql():
     }, cls=MyEncoder)
 
 
+@main.route('/findGplxAll', methods=['GET', 'POST'])
+def findGplxAll():
+    form_json = request.json
+    gplx = form_json.get(const.gplx[1])
+    with UsingMysql() as um:
+        params = [f'%{gplx}%', gplx]
+        sql = mapper.findGplxAll()
+        ls = um.fetch_all(sql, params)
+    return json.dumps(ls, cls=MyEncoder)
+
+
 @main.route('/', methods=['GET', 'POST'])
 def home():
     print(f'SQLALCHEMY_DATABASE_URI = {current_app.config.get("SQLALCHEMY_DATABASE_URI")}')
