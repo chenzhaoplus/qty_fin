@@ -14,6 +14,29 @@ from ..sql import mapper
 from ..utils.json_utils import ls_to_json
 
 
+@main.route("/findStockBySql", methods=['POST'])
+def findStockBySql():
+    form_json = request.json
+    stock_name = form_json.get("stockName")
+    stock_code = form_json.get("stockCode")
+    stock_type = form_json.get("stockType")
+    sql = mapper.findStockBySql()
+    count_key = 'count(1)'
+    with UsingMysql() as um:
+        params = [30, 30,
+                  500 * 100000000, 500 * 100000000,
+                  f'%{stock_name}%', stock_name,
+                  f'%{stock_code}%', stock_code,
+                  stock_type, stock_type]
+        print(f'params: {params}')
+        ls = um.fetch_all(get_page_sql(request, sql), params)
+        cnt = um.get_count(get_cnt_sql(sql, count_key), params, count_key=count_key)
+    return {
+        "content": ls,
+        "totalElements": cnt
+    }
+
+
 @main.route('/', methods=['GET', 'POST'])
 def home():
     print(f'SQLALCHEMY_DATABASE_URI = {current_app.config.get("SQLALCHEMY_DATABASE_URI")}')
@@ -28,7 +51,7 @@ def hello():
 @main.route("/findAllStock", methods=['POST'])
 def findAllStock():
     with UsingMysql() as um:
-        sql = 'select * from test_stock_2021_07_31'
+        sql = 'select * from stock_info_2021_07_31'
         ls = um.fetch_all(sql)
     return json.dumps(ls, cls=MyEncoder)
 
@@ -54,20 +77,3 @@ def runCrawl():
     run_crawl()
     print('runCrawl success')
     return 'success'
-
-
-@main.route("/findStockBySql", methods=['POST'])
-def findStockBySql():
-    form_json = request.json
-    stock_name = form_json.get("stockName")
-    stock_code = form_json.get("stockCode")
-    with UsingMysql() as um:
-        params = [30, 500 * 100000000,
-                  f'%{stock_name}%', stock_name,
-                  f'%{stock_code}%', stock_code]
-        ls = um.fetch_all(get_page_sql(request, mapper.findStockBySql()), params)
-        cnt = um.get_count(get_cnt_sql(mapper.findStockBySql()), params, count_key='count(1)')
-    return {
-        "content": ls,
-        "totalElements": cnt
-    }

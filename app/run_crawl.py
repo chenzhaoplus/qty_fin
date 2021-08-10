@@ -66,7 +66,7 @@ def mysql_crawl(pls):
     # df.loc[df['净利润同比'] == '-'] = ''
     # df["股票代码"] = np.where(len(df.股票代码) < 6, str(df.股票代码).zfill(6), df.股票代码)
     # print(df)
-    df.to_sql(f'test_stock_{cur_y_m_d.replace("-", "_")}', con=init_engine(), index_label=['id'],
+    df.to_sql(f'{const.TABLE_PREFIX}_{cur_y_m_d.replace("-", "_")}', con=init_engine(), index_label=['id'],
               if_exists='replace',
               dtype={
                   'id': types.BigInteger,

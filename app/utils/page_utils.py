@@ -13,7 +13,7 @@ def get_cnt_sql(sql, cnt_key='count(1)'):
     ret = f'''
         select {cnt_key} from ({sql}) t
     '''
-    print(f'get_cnt_sql: {ret}')
+    # print(f'get_cnt_sql: {ret}')
     return ret
 
 

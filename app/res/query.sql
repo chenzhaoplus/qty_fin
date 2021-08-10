@@ -1,7 +1,7 @@
 SELECT
 	*
 FROM
-	`test_stock_2021_07_14`
+	`stock_info_2021_07_14`
 WHERE
 	cast( `最新价` AS DECIMAL(20, 3) ) <= 30 AND cast( `总市值-数` AS DECIMAL(20, 3) ) >= 500 * 100000000
 	AND `公司内在价值-净利润` <> ''

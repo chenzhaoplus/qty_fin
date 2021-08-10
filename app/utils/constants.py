@@ -1,3 +1,6 @@
+"""
+表字段中文表头
+"""
 gpdm = '股票代码'
 gpmc = '股票名称'
 zxj = '最新价'
@@ -26,6 +29,9 @@ cjl_hand = '成交量-手'
 ldbl = '流动比率'
 sdbl = '速动比率'
 
+"""
+爬虫地址
+"""
 type_name_col = '股票类型'
 
 type_name_5g = '5G概念'
@@ -67,8 +73,15 @@ code_url_security = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90
 type_name_software = '软件'
 code_url_software = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0737'
 
+"""
+数字单位
+"""
 TRILLION = '万亿'
 HUNDRED_MILLION = '亿'
 TEN_THOUSAND = '万'
 THOUSAND = '千'
 HUNDRED = '百'
+
+
+TABLE_PREFIX = "stock_info"
+

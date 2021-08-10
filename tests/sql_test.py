@@ -5,9 +5,10 @@ with UsingMysql(db_config=init_dbconfig()) as um:
         SELECT
             *
         FROM
-            `test_stock_2021_08_06`
+            `stock_info_2021_08_06`
         WHERE
-            `最新价` <= %s AND `总市值-数` >= %s
+            `最新价` <= %s 
+            AND `总市值-数` >= %s
             AND `公司内在价值-净利润` <> ''
             AND `公司内在价值-营收` <> ''
         ORDER BY
