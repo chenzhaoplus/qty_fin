@@ -81,12 +81,12 @@ def mysql_crawl(pls):
                   const.jlr_d[1]: types.DECIMAL(20, 3),
                   const.ldbl[1]: types.DECIMAL(8, 3),
                   const.sdbl[1]: types.DECIMAL(8, 3),
-                  const.gsnzjz_ys[1]: types.DECIMAL(8, 3),
-                  const.gsnzjz_jlr[1]: types.DECIMAL(8, 3),
-                  # const.zxj[1]: types.DECIMAL(20, 3),
-                  # const.roe[1]: types.DECIMAL(8, 3),
-                  # const.jlrtb[1]: types.DECIMAL(8, 3),
-                  # const.ystbl[1]: types.DECIMAL(8, 3),
+                  const.gsnzjz_ys[1]: types.DECIMAL(20, 3),
+                  const.gsnzjz_jlr[1]: types.DECIMAL(20, 3),
+                  const.zxj[1]: types.DECIMAL(20, 3),
+                  const.roe[1]: types.DECIMAL(8, 3),
+                  const.jlrtb[1]: types.DECIMAL(20, 3),
+                  const.ystbl[1]: types.DECIMAL(20, 3),
               })
 
 
@@ -113,9 +113,9 @@ def run_crawl():
 
     with BrowserPool(6) as b_pool:
         for par in par_ls:
-            code_crawl(par[0], par[1], b_pool)
-            detail_crawl(par[0], b_pool)
-            finance_crawl(par[0], b_pool)
+            # code_crawl(par[0], par[1], b_pool)
+            # detail_crawl(par[0], b_pool)
+            # finance_crawl(par[0], b_pool)
             analysis_crawl(par[0], b_pool)
 
     mysql_crawl(par_ls)

@@ -9,7 +9,7 @@ def str_to_price(price=None):
     if not price:
         return 0
 
-    ret = 0
+    ret = price
     if price.find(const.TRILLION) > 0:
         ret = float(price.replace(const.TRILLION, '')) * 1_0000_0000_0000
     elif price.find(const.HUNDRED_MILLION) > 0:

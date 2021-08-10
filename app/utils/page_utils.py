@@ -29,6 +29,7 @@ def get_page_sql(request, sql):
     order = form_json.get('order') if form_json.get('order') else 'desc'
     # sort = form_json.get('sort') if form_json.get('sort') else f'cast( {const.gsnzjz_jlr[1]} AS DECIMAL(20,3) )'
     sort = form_json.get('sort') if form_json.get('sort') else const.gsnzjz_jlr[1]
+    sort = sort + '_d' if sort in [const.zsz, const.zys, const.zlr, const.jlr] else sort
     ret = f'''
         select * from ({sql}) t
         order by {sort} {order}

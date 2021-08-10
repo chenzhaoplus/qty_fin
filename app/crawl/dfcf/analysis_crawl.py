@@ -32,8 +32,8 @@ class AnalysisCrawl(Crawl):
         self._zfz_d = cu.str_to_price(info[6])  # 总负债-数
         self._gdqyhj = info[7]  # 股东权益合计
         self._gdqyhj_d = cu.str_to_price(info[7])  # 股东权益合计-数
-        self._jlrtb = info[8]  # 净利润同比（%）
-        self._ystbl = info[9]  # 营收同比率（%）
+        self._jlrtb = cu.str_to_price(info[8])  # 净利润同比（%）
+        self._ystbl = cu.str_to_price(info[9])  # 营收同比率（%）
         self._zys = info[10]  # 总营收
         self._zys_d = cu.str_to_price(info[10])  # 总营收-数
         self._zlr = info[11]  # 总利润
@@ -174,6 +174,7 @@ def store_data(f_name='res/股票分析信息.csv', data=None, by=const.gsnzjz_y
     if data is None:
         raise ValueError("argument data cannot be null!")
     df = pd.DataFrame(data)
+    df.replace('-', '', inplace=True)
     df = df.sort_values(by=by, ascending=ascending, axis=0)
     df.to_csv(f_name, index=False)
     print(f'[最终文件数据], df = {df}')

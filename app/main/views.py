@@ -3,16 +3,16 @@ import json
 from flask import current_app
 from flask import request
 
+import app.utils.constants as const
 from app.utils.my_encoder import MyEncoder
 from app.utils.my_pymysql import UsingMysql
 from app.utils.my_sqlalchemy import UsingAlchemy
-from app.utils.page_utils import get_page_params, get_cnt_sql, get_page_sql
+from app.utils.page_utils import get_cnt_sql, get_page_sql
 from . import main
 from ..models import Product
 from ..run_crawl import run_crawl
 from ..sql import mapper
 from ..utils.json_utils import ls_to_json
-import app.utils.constants as const
 
 
 @main.route("/findStockBySql", methods=['POST'])
@@ -21,14 +21,23 @@ def findStockBySql():
     gpmc = form_json.get(const.gpmc[1])
     gpdm = form_json.get(const.gpdm[1])
     gplx = form_json.get(const.gplx[1])
-    sql = mapper.findStockBySql()
+    zxj_low = form_json.get('zxjLow')
+    zxj_high = form_json.get('zxjHigh')
+    gp_report = form_json.get('gp_report')
+    zsz_low = float(form_json.get('zszLow') * 1_0000_0000) if form_json.get('zszLow') is not None else None
+    zsz_high = float(form_json.get('zszHigh') * 1_0000_0000) if form_json.get('zszHigh') is not None else None
+    table_name = f'`{const.TABLE_PREFIX}_{gp_report}`'
+    sql = mapper.findStockBySql(table_name)
     count_key = 'count(1)'
     with UsingMysql() as um:
-        params = [30, 30,
-                  500 * 100000000, 500 * 100000000,
-                  f'%{gpmc}%', gpmc,
-                  f'%{gpdm}%', gpdm,
-                  gplx, gplx]
+        params = [
+            f'%{gpmc}%', gpmc,
+            f'%{gpdm}%', gpdm,
+            gplx, gplx,
+            zxj_low, zxj_low,
+            zxj_high, zxj_high,
+            zsz_low, zsz_low,
+            zsz_high, zsz_high]
         print(f'params: {params}')
         ls = um.fetch_all(get_page_sql(request, sql), params)
         cnt = um.get_count(get_cnt_sql(sql, count_key), params, count_key=count_key)
@@ -47,6 +56,19 @@ def findGplxAll():
         sql = mapper.findGplxAll()
         ls = um.fetch_all(sql, params)
     return json.dumps(ls, cls=MyEncoder)
+
+
+@main.route('/findStockTable', methods=['GET', 'POST'])
+def findStockTable():
+    form_json = request.json
+    keyword = form_json.get('keyword')
+    with UsingMysql() as um:
+        params = [f'%{const.TABLE_PREFIX}_%',
+                  f'%{const.TABLE_PREFIX}_{keyword}%', f'{keyword}']
+        sql = mapper.findStockTable()
+        ls = um.fetch_all(sql, params)
+    ret = [str(x['table_name']).replace(f'{const.TABLE_PREFIX}_', '') for x in ls]
+    return json.dumps(ret, cls=MyEncoder)
 
 
 @main.route('/', methods=['GET', 'POST'])
