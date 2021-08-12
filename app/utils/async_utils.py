@@ -14,12 +14,12 @@ def async_able(f):
 # @async_able
 # def A():
 #     sleep(10)
-#     print("函数A睡了十秒钟。。。。。。")
-#     print("a function")
+#     log.log_info("函数A睡了十秒钟。。。。。。")
+#     log.log_info("a function")
 #
 #
 # def B():
-#     print("b function")
+#     log.log_info("b function")
 #
 #
 # A()

@@ -1,10 +1,8 @@
-from timeit import default_timer
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app import db
 import app.utils.date_utils as du
+from app import db
 
 
 class UsingAlchemy(object):
@@ -37,7 +35,7 @@ class UsingAlchemy(object):
 
         if self._log_time is True:
             # diff = default_timer() - self._start
-            # print('-- %s: %.6f 秒' % (self._log_label, diff))
+            # cur_app.logger.info('-- %s: %.6f 秒' % (self._log_label, diff))
             du.end_tm(self._start, self._log_label)
 
     @property

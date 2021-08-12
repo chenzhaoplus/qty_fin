@@ -4,9 +4,11 @@ from concurrent.futures import as_completed
 from queue import Queue
 
 import pandas as pd
+from flask import current_app as cur_app
+
 import app.utils.constants as const
-from ..crawl import Crawl
 from app.utils import file_utils, common_utils as cu
+from ..crawl import Crawl
 
 
 class DetailCrawl(Crawl):
@@ -104,7 +106,7 @@ class DetailCrawl(Crawl):
         self._zlr = zlr[0].text if zlr else ''
         self._jlr = jlr[0].text if jlr else ''
         self._roe = roe[0].text if roe else ''
-        print(
+        cur_app.logger.info(
             f'[详细数据], {const.gpdm[0]}={self._code}, {const.gpmc[0]}={self._name}, {const.zxj[0]}={self._price}, '
             f'{const.zsz[0]}={self._total_price}, {const.mgsy[0]}={self._mgsy}, '
             f'{const.jlrtb[0]}={self._jlrtb}, {const.ystbl[0]}={self._ystbl}')
@@ -172,11 +174,11 @@ def get_task_queue(read_file):
                                     syl_dy=line[4])
                 tasks.put(crawl)
     except FileNotFoundError:
-        print('无法打开文件')
+        cur_app.logger.error('无法打开文件')
     except LookupError:
-        print('指定了未知的编码!')
+        cur_app.logger.error('指定了未知的编码!')
     except UnicodeDecodeError:
-        print('读取文件时解码错误!')
+        cur_app.logger.error('读取文件时解码错误!')
     return tasks
 
 
@@ -186,7 +188,7 @@ def store_data(f_name='res/股票详细信息.csv', data=None, by=const.mgsy[0],
     df = pd.DataFrame(data)
     df = df.sort_values(by=by, ascending=ascending, axis=0)
     df.to_csv(f_name, index=False)
-    print(f'[最终文件数据], df = {df}')
+    cur_app.logger.info(f'[最终文件数据], df = {df}')
 
 
 def begin_crawl(read_file, write_file, b_pool, type_name='', is_end=False):

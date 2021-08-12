@@ -1,3 +1,5 @@
+from flask import current_app as cur_app
+
 import app.utils.constants as const
 
 
@@ -16,7 +18,7 @@ def get_cnt_sql(sql, cnt_key='count(1)'):
     ret = f'''
         select {cnt_key} from ({sql}) t
     '''
-    # print(f'get_cnt_sql: {ret}')
+    # log.log_info(f'get_cnt_sql: {ret}')
     return ret
 
 
@@ -29,11 +31,12 @@ def get_page_sql(request, sql):
     order = form_json.get('order') if form_json.get('order') else 'desc'
     # sort = form_json.get('sort') if form_json.get('sort') else f'cast( {const.gsnzjz_jlr[1]} AS DECIMAL(20,3) )'
     sort = form_json.get('sort') if form_json.get('sort') else const.gsnzjz_jlr[1]
-    sort = sort + '_d' if sort in [const.zsz[1], const.zys[1], const.zlr[1], const.jlr[1], const.zzc[1], const.zfz[1], const.gdqyhj[1]] else sort
+    sort = sort + '_d' if sort in [const.zsz[1], const.zys[1], const.zlr[1], const.jlr[1], const.zzc[1], const.zfz[1],
+                                   const.gdqyhj[1]] else sort
     ret = f'''
         select * from ({sql}) t
         order by {sort} {order}
         limit {(page_num - 1) * page_size}, {page_size}
     '''
-    print(f'get_page_sql: {ret}')
+    cur_app.logger.info(f'get_page_sql: {ret}')
     return ret

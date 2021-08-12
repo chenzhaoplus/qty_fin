@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+from flask import current_app as cur_app
 from sqlalchemy import types
 
 import app.crawl.dfcf.analysis_crawl as analysis
@@ -12,6 +13,7 @@ import app.utils.date_utils as du
 from app.crawl.browser_pool import BrowserPool
 from app.utils.async_utils import async_able
 from app.utils.my_sqlalchemy import init_engine
+
 
 # cur_year = du.get_cur_date("%Y")
 cur_year = '2021'
@@ -65,7 +67,7 @@ def mysql_crawl(pls):
     # df.loc[df['营收同比率'] == '-'] = ''
     # df.loc[df['净利润同比'] == '-'] = ''
     # df["股票代码"] = np.where(len(df.股票代码) < 6, str(df.股票代码).zfill(6), df.股票代码)
-    # print(df)
+    # cur_app.logger.info(df)
     df.to_sql(f'{const.TABLE_PREFIX}_{cur_y_m_d.replace("-", "_")}', con=init_engine(), index_label=['id'],
               if_exists='replace',
               dtype={
@@ -93,7 +95,7 @@ def mysql_crawl(pls):
 @async_able
 def run_crawl():
     start = du.start_tm()
-    print(f'basedir = {basedir} \n')
+    cur_app.logger.info(f'basedir = {basedir} \n')
 
     par_ls = [
         (const.type_name_5g, const.code_url_5g),

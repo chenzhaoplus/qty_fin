@@ -2,10 +2,11 @@ import time
 from concurrent.futures import as_completed
 
 import pandas as pd
-from ..crawl import Crawl
-from app.utils import file_utils, common_utils as cu
+from flask import current_app as cur_app
 
 import app.utils.constants as const
+from app.utils import file_utils, common_utils as cu
+from ..crawl import Crawl
 
 
 class CodeCrawl(Crawl):
@@ -40,7 +41,7 @@ class CodeCrawl(Crawl):
         # WebDriverWait(driver=b, timeout=20, poll_frequency=0.5).until(condition)
 
     def parse_data(self, b, pn):
-        print(f'分析数据第{pn}页')
+        cur_app.logger.info(f'分析数据第{pn}页')
         time.sleep(2)
         data = {
             const.gpdm[0]: [],
@@ -64,7 +65,7 @@ class CodeCrawl(Crawl):
             data[const.cjl_hand[0]].append(cjl.text)
         for syl in syl_dy_list:
             data[const.syl_dynamic[0]].append(syl.text)
-        print(f'分页数据第{pn}页, 分析后数据 = {data}')
+        cur_app.logger.info(f'分页数据第{pn}页, 分析后数据 = {data}')
         return data
 
     def store_data(self, f_name='res/股票基本信息.csv', data=None, by=const.gpdm[0], ascending=True):
@@ -73,7 +74,7 @@ class CodeCrawl(Crawl):
         df = pd.DataFrame(data)
         df = df.sort_values(by=by, ascending=ascending, axis=0)
         df.to_csv(f_name, index=False)
-        print(f'[最终文件数据], df = {df}')
+        cur_app.logger.info(f'[最终文件数据], df = {df}')
 
     def run(self, b, pn):
         self.get_url(b)

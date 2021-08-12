@@ -17,4 +17,4 @@ with UsingMysql(db_config=init_dbconfig()) as um:
     # pymysql 不支持 %d 参数，统一用 %s
     params = [30, 500 * 100000000]
     ret = um.fetch_all(sql, params)
-    print(ret)
+    log.log_info(ret)

@@ -4,10 +4,11 @@ from concurrent.futures import as_completed
 from queue import Queue
 
 import pandas as pd
+from flask import current_app as cur_app
 
 import app.utils.constants as const
-from ..crawl import Crawl
 from app.utils import file_utils, common_utils as cu
+from ..crawl import Crawl
 
 
 class FinanceCrawl(Crawl):
@@ -96,7 +97,7 @@ class FinanceCrawl(Crawl):
         sdbl = b.find_elements_by_xpath(f'//span[text()="{const.sdbl[0]}"]/parent::td/following-sibling::td[1]/span')
         self._ldbl = ldbl[0].text if ldbl else ''
         self._sdbl = sdbl[0].text if sdbl else ''
-        print(
+        cur_app.logger.info(
             f'[财务数据], {const.gpdm[0]}={self._code}, {const.gpmc[0]}={self._name}, {const.zxj[0]}={self._price}, '
             f'{const.zsz[0]}={self._total_price}, {const.mgsy[0]}={self._mgsy}, '
             f'{const.jlrtb[0]}={self._jlrtb}, {const.ystbl[0]}={self._ystbl}')
@@ -165,11 +166,11 @@ def get_task_queue(read_file):
                 crawl = FinanceCrawl(url=url, info=line)
                 tasks.put(crawl)
     except FileNotFoundError:
-        print('无法打开文件')
+        cur_app.logger.error('无法打开文件')
     except LookupError:
-        print('指定了未知的编码!')
+        cur_app.logger.error('指定了未知的编码!')
     except UnicodeDecodeError:
-        print('读取文件时解码错误!')
+        cur_app.logger.error('读取文件时解码错误!')
     return tasks
 
 
@@ -179,7 +180,7 @@ def store_data(f_name='res/股票财务信息.csv', data=None, by=const.mgsy[0],
     df = pd.DataFrame(data)
     df = df.sort_values(by=by, ascending=ascending, axis=0)
     df.to_csv(f_name, index=False)
-    print(f'[最终文件数据], df = {df}')
+    cur_app.logger.info(f'[最终文件数据], df = {df}')
 
 
 def begin_crawl(read_file, write_file, b_pool, type_name=''):

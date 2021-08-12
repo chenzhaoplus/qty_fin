@@ -1,6 +1,7 @@
 import json
 
 from flask import current_app
+from flask import current_app as cur_app
 from flask import request
 
 import app.utils.constants as const
@@ -38,7 +39,7 @@ def findStockBySql():
             zxj_high, zxj_high,
             zsz_low, zsz_low,
             zsz_high, zsz_high]
-        print(f'params: {params}')
+        cur_app.logger.info(f'params: {params}')
         ls = um.fetch_all(get_page_sql(request, sql), params)
         cnt = um.get_count(get_cnt_sql(sql, count_key), params, count_key=count_key)
     return json.dumps({
@@ -73,7 +74,7 @@ def findStockTable():
 
 @main.route('/', methods=['GET', 'POST'])
 def home():
-    print(f'SQLALCHEMY_DATABASE_URI = {current_app.config.get("SQLALCHEMY_DATABASE_URI")}')
+    cur_app.logger.info(f'SQLALCHEMY_DATABASE_URI = {current_app.config.get("SQLALCHEMY_DATABASE_URI")}')
     return 'Hello Home!'
 
 
@@ -109,5 +110,5 @@ def findFirstProduct():
 @main.route("/runCrawl", methods=['POST'])
 def runCrawl():
     run_crawl()
-    print('runCrawl success')
+    cur_app.logger.info('runCrawl success')
     return 'success'

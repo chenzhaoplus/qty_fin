@@ -1,8 +1,10 @@
+from flask import current_app as cur_app
+
 from . import constants as const
 
 
 def print_line(char='-', cnt=30, desc='分割线'):
-    print(f'\n{char * cnt + desc + char * cnt}\n')
+    cur_app.logger.info(f'\n{char * cnt + desc + char * cnt}\n')
 
 
 def str_to_price(price=None):
@@ -44,4 +46,4 @@ def which_trade(code):
 if __name__ == '__main__':
     # print_line()
     str_to_price('36.96亿')
-    # print('36.96万'.find(const.HUNDRED_MILLION))
+    # log.log_info('36.96万'.find(const.HUNDRED_MILLION))
