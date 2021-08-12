@@ -14,12 +14,12 @@ def config_logger(app):
     #     level=logging.DEBUG,  # 定义输出到文件的log级别，大于此级别的都被输出
     #     format='%(asctime)s  %(filename)s : %(levelname)s  %(message)s',  # 定义输出log的格式
     #     datefmt='%Y-%m-%d %A %H:%M:%S',  # 时间
-    #     filename=f'logging-{du.get_cur_date("%Y-%m-%d")}.log',  # log文件名
+    #     filename=f'logging{du.get_cur_date("%Y-%m-%d")}.log',  # log文件名
     #     filemode='w')  # 写入模式“w”或“a”
 
     # Define a Handler and set a format which output to console
     # console = logging.StreamHandler()  # 定义console handler
-    console = logging.FileHandler(f'logging-{du.get_cur_date("%Y-%m-%d")}.log', encoding='UTF-8')
+    console = logging.FileHandler(f'logging{du.get_cur_date("%Y-%m-%d")}.log', encoding='UTF-8')
     console.setLevel(logging.INFO)  # 定义该handler级别
     formatter = logging.Formatter('%(asctime)s  %(filename)s : %(levelname)s  %(message)s')  # 定义该handler格式
     console.setFormatter(formatter)
