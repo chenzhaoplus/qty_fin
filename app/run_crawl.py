@@ -17,7 +17,7 @@ from logger_config import logger
 # cur_year = du.get_cur_date("%Y")
 cur_year = '2021'
 
-cur_m_d = '07-31'
+cur_m_d = '08-06'
 # cur_m_d = du.get_cur_date("%m-%d")
 
 cur_y_m_d = f'{cur_year}-{cur_m_d}'

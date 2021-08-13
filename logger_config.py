@@ -3,7 +3,7 @@ import os
 import time
 
 cur_date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-root_path = os.path.abspath(os.path.dirname(__file__)).split('shippingSchedule')[0]
+root_path = os.path.abspath(os.path.dirname(__file__))
 if not os.path.exists(os.path.dirname(root_path + "\\logs\\")):
     os.makedirs(os.path.dirname(root_path + "\\logs\\"))
 filename = f'{root_path}\\logs\\logging{cur_date}.log'
