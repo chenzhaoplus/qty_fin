@@ -35,7 +35,7 @@ class UsingAlchemy(object):
 
         if self._log_time is True:
             # diff = default_timer() - self._start
-            # cur_app.logger.info('-- %s: %.6f 秒' % (self._log_label, diff))
+            # logger.info('-- %s: %.6f 秒' % (self._log_label, diff))
             du.end_tm(self._start, self._log_label)
 
     @property

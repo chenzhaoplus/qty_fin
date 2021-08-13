@@ -1,4 +1,4 @@
-from flask import current_app as cur_app
+from logger_config import logger
 
 import app.utils.constants as const
 
@@ -38,5 +38,5 @@ def get_page_sql(request, sql):
         order by {sort} {order}
         limit {(page_num - 1) * page_size}, {page_size}
     '''
-    cur_app.logger.info(f'get_page_sql: {ret}')
+    logger.info(f'get_page_sql: {ret}')
     return ret

@@ -3,7 +3,7 @@ from timeit import default_timer
 import pymysql
 from dbutils.pooled_db import PooledDB
 from flask import current_app
-from flask import current_app as cur_app
+from logger_config import logger
 
 
 class DMysqlConfig:
@@ -125,7 +125,7 @@ class UsingMysql(object):
 
         if self._log_time is True:
             diff = default_timer() - self._start
-            cur_app.logger.info('-- %s: %.6f 秒' % (self._log_label, diff))
+            logger.info('-- %s: %.6f 秒' % (self._log_label, diff))
 
     # ========= 一系列封装的业务方法
 

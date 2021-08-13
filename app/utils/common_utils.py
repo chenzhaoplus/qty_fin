@@ -1,10 +1,10 @@
-from flask import current_app as cur_app
+from logger_config import logger
 
 from . import constants as const
 
 
 def print_line(char='-', cnt=30, desc='分割线'):
-    cur_app.logger.info(f'\n{char * cnt + desc + char * cnt}\n')
+    logger.info(f'\n{char * cnt + desc + char * cnt}\n')
 
 
 def str_to_price(price=None):

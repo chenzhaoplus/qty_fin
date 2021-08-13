@@ -1,4 +1,6 @@
 from app.utils.my_pymysql import UsingMysql, init_dbconfig
+from logger_config import logger
+
 
 with UsingMysql(db_config=init_dbconfig()) as um:
     sql = """
@@ -17,4 +19,4 @@ with UsingMysql(db_config=init_dbconfig()) as um:
     # pymysql 不支持 %d 参数，统一用 %s
     params = [30, 500 * 100000000]
     ret = um.fetch_all(sql, params)
-    log.log_info(ret)
+    logger.log_info(ret)

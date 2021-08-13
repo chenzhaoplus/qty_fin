@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from queue import Queue
 
-from flask import current_app as cur_app
+from logger_config import logger
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -44,11 +44,11 @@ class BrowserPool:
         bc = 1
         while not self._queue.empty():
             self._queue.get().quit()
-            cur_app.logger.info(f'关闭浏览器{bc}')
+            logger.info(f'关闭浏览器{bc}')
             bc += 1
 
     def put_queue(self, bc):
-        cur_app.logger.info(f'开启浏览器{bc}')
+        logger.info(f'开启浏览器{bc}')
         chrome_options = Options()
         chrome_options.add_argument('--headless')  # 不显示浏览器启动及执行过程
         chrome_options.add_argument('lang=zh_CN.UTF-8')
