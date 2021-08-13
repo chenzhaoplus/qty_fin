@@ -9,7 +9,7 @@ if not os.path.exists(os.path.dirname(root_path + "\\logs\\")):
 filename = f'{root_path}\\logs\\logging{cur_date}.log'
 
 logging.basicConfig(
-    level=logging.DEBUG,  # 定义输出到文件的log级别，大于此级别的都被输出
+    level=logging.INFO,  # 定义输出到文件的log级别，大于此级别的都被输出
     format='%(asctime)s  %(filename)s : %(levelname)s  %(message)s',  # 定义输出log的格式
     datefmt='%Y-%m-%d %A %H:%M:%S',  # 时间
     # filename=filename,  # log文件名
