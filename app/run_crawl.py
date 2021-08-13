@@ -112,7 +112,7 @@ def run_crawl():
         (const.type_name_software, const.code_url_software),
     ]
 
-    with BrowserPool(6) as b_pool:
+    with BrowserPool(5) as b_pool:
         for par in par_ls:
             code_crawl(par[0], par[1], b_pool)
             detail_crawl(par[0], b_pool)
