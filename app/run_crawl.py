@@ -17,12 +17,12 @@ from logger_config import logger
 # cur_year = du.get_cur_date("%Y")
 cur_year = '2021'
 
-cur_m_d = '08-06'
+cur_m_d = '08-31'
 # cur_m_d = du.get_cur_date("%m-%d")
 
 cur_y_m_d = f'{cur_year}-{cur_m_d}'
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.abspath(os.path.dirname(__file__)) + "/.."
 
 
 def basic_file(type_name):
@@ -112,7 +112,7 @@ def run_crawl():
         (const.type_name_software, const.code_url_software),
     ]
 
-    with BrowserPool(5) as b_pool:
+    with BrowserPool(4) as b_pool:
         for par in par_ls:
             code_crawl(par[0], par[1], b_pool)
             detail_crawl(par[0], b_pool)
