@@ -36,6 +36,7 @@ def findStockTable():
             and table_schema = 'python_crawl' 
             AND table_name LIKE %s
             and (table_name like %s or %s = '') 
+        ORDER BY table_name desc
     """
 
 # """
