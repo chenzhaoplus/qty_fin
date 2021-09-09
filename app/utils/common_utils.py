@@ -43,6 +43,17 @@ def which_trade(code):
         return f'SZ{code}'
 
 
+crawl_list = []
+
+
+def in_crawl_list(code):
+    if code in crawl_list:
+        return True
+    else:
+        crawl_list.append(code)
+        return False
+
+
 if __name__ == '__main__':
     # print_line()
     str_to_price('36.96亿')

@@ -109,24 +109,24 @@ class FinanceCrawl(Crawl):
         self.get_url(b)
         self.parse_data(b)
         return {
-            const.gpdm[0]: self._code,
-            const.gpmc[0]: self._name,
-            const.zxj[0]: self._price,
-            const.zsz[0]: self._total_price,
-            const.mgsy[0]: self._mgsy,
-            const.zzc[0]: self._zzc,
-            const.zfz[0]: self._zfz,
-            const.gdqyhj[0]: self._gdqyhj,
-            const.jlrtb[0]: self._jlrtb,
-            const.ystbl[0]: self._ystbl,
-            const.zys[0]: self._zys,
-            const.zlr[0]: self._zlr,
-            const.jlr[0]: self._jlr,
-            const.roe[0]: self._roe,
-            const.cjl_hand[0]: self._cjl_hand,
-            const.syl_dynamic[0]: self._syl_dy,
-            const.ldbl[0]: self._ldbl,
-            const.sdbl[0]: self._sdbl,
+            const.gpdm[1]: self._code,
+            const.gpmc[1]: self._name,
+            const.zxj[1]: self._price,
+            const.zsz[1]: self._total_price,
+            const.mgsy[1]: self._mgsy,
+            const.zzc[1]: self._zzc,
+            const.zfz[1]: self._zfz,
+            const.gdqyhj[1]: self._gdqyhj,
+            const.jlrtb[1]: self._jlrtb,
+            const.ystbl[1]: self._ystbl,
+            const.zys[1]: self._zys,
+            const.zlr[1]: self._zlr,
+            const.jlr[1]: self._jlr,
+            const.roe[1]: self._roe,
+            const.cjl_hand[1]: self._cjl_hand,
+            const.syl_dynamic[1]: self._syl_dy,
+            const.ldbl[1]: self._ldbl,
+            const.sdbl[1]: self._sdbl,
         }
 
 
@@ -174,7 +174,7 @@ def get_task_queue(read_file):
     return tasks
 
 
-def store_data(f_name='res/股票财务信息.csv', data=None, by=const.mgsy[0], ascending=False):
+def store_data(f_name='res/股票财务信息.csv', data=None, by=const.mgsy[1], ascending=False):
     if data is None:
         raise ValueError("argument data cannot be null!")
     df = pd.DataFrame(data)

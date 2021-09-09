@@ -110,6 +110,14 @@ def run_crawl():
         (const.type_name_medicine, const.code_url_medicine),
         (const.type_name_security, const.code_url_security),
         (const.type_name_software, const.code_url_software),
+        (const.type_name_photovoltaic, const.code_url_photovoltaic),
+        (const.type_name_organ, const.code_url_organ),
+        (const.type_name_chip, const.code_url_chip),
+        (const.type_name_wind, const.code_url_wind),
+        (const.type_name_elec_comp, const.code_url_elec_comp),
+        (const.type_name_cultural_enter, const.code_url_cultural_enter),
+        (const.type_name_communication, const.code_url_communication),
+        (const.type_name_power, const.code_url_power),
     ]
 
     with BrowserPool(4) as b_pool:

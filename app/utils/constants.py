@@ -69,6 +69,30 @@ code_url_security = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90
 type_name_software = '软件'
 code_url_software = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0737'
 
+type_name_photovoltaic = '光伏'
+code_url_photovoltaic = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0978'
+
+type_name_organ = '机构重仓'
+code_url_organ = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0552'
+
+type_name_chip = '国产芯片'
+code_url_chip = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0891'
+
+type_name_wind = '风能'
+code_url_wind = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0595'
+
+type_name_elec_comp = '电子元件'
+code_url_elec_comp = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0459'
+
+type_name_cultural_enter = '文教娱乐'
+code_url_cultural_enter = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0740'
+
+type_name_communication = '通讯行业'
+code_url_communication = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0448'
+
+type_name_power = '电力行业'
+code_url_power = 'http://quote.eastmoney.com/center/boardlist.html#boards2-90.BK0428'
+
 """
 数字单位
 """

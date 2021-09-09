@@ -4,10 +4,10 @@ from concurrent.futures import as_completed
 from queue import Queue
 
 import pandas as pd
-from logger_config import logger
 
 import app.utils.constants as const
 from app.utils import file_utils, common_utils as cu
+from logger_config import logger
 from ..crawl import Crawl
 
 
@@ -118,22 +118,22 @@ class DetailCrawl(Crawl):
         self.get_url(b)
         self.parse_data(b)
         return {
-            const.gpdm[0]: self._code,
-            const.gpmc[0]: self._name,
-            const.zxj[0]: self._price,
-            const.zsz[0]: self._total_price,
-            const.mgsy[0]: self._mgsy,
-            const.zzc[0]: self._zzc,
-            const.zfz[0]: self._zfz,
-            const.gdqyhj[0]: self._gdqyhj,
-            const.jlrtb[0]: self._jlrtb,
-            const.ystbl[0]: self._ystbl,
-            const.zys[0]: self._zys,
-            const.zlr[0]: self._zlr,
-            const.jlr[0]: self._jlr,
-            const.roe[0]: self._roe,
-            const.cjl_hand[0]: self._cjl_hand,
-            const.syl_dynamic[0]: self._syl_dy,
+            const.gpdm[1]: self._code,
+            const.gpmc[1]: self._name,
+            const.zxj[1]: self._price,
+            const.zsz[1]: self._total_price,
+            const.mgsy[1]: self._mgsy,
+            const.zzc[1]: self._zzc,
+            const.zfz[1]: self._zfz,
+            const.gdqyhj[1]: self._gdqyhj,
+            const.jlrtb[1]: self._jlrtb,
+            const.ystbl[1]: self._ystbl,
+            const.zys[1]: self._zys,
+            const.zlr[1]: self._zlr,
+            const.jlr[1]: self._jlr,
+            const.roe[1]: self._roe,
+            const.cjl_hand[1]: self._cjl_hand,
+            const.syl_dynamic[1]: self._syl_dy,
         }
 
 
@@ -169,6 +169,8 @@ def get_task_queue(read_file):
                 rn += 1
                 if rn == 1:
                     continue
+                if cu.in_crawl_list(line[0]):
+                    continue
                 url = f'http://data.eastmoney.com/stockdata/{line[0]}.html'
                 crawl = DetailCrawl(url=url, code=line[0], name=line[1], price=line[2], cjl_hand=line[3],
                                     syl_dy=line[4])
@@ -182,7 +184,7 @@ def get_task_queue(read_file):
     return tasks
 
 
-def store_data(f_name='res/股票详细信息.csv', data=None, by=const.mgsy[0], ascending=False):
+def store_data(f_name='res/股票详细信息.csv', data=None, by=const.mgsy[1], ascending=False):
     if data is None:
         raise ValueError("argument data cannot be null!")
     df = pd.DataFrame(data)
