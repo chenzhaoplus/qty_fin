@@ -97,6 +97,7 @@ def run_crawl():
     logger.info(f'basedir = {basedir} \n')
 
     par_ls = [
+        # (const.type_name_organ, const.code_url_organ),
         (const.type_name_5g, const.code_url_5g),
         (const.type_name_bank, const.code_url_bank),
         (const.type_name_broker, const.code_url_broker),
@@ -111,7 +112,6 @@ def run_crawl():
         (const.type_name_security, const.code_url_security),
         (const.type_name_software, const.code_url_software),
         (const.type_name_photovoltaic, const.code_url_photovoltaic),
-        # (const.type_name_organ, const.code_url_organ),
         (const.type_name_chip, const.code_url_chip),
         (const.type_name_wind, const.code_url_wind),
         (const.type_name_elec_comp, const.code_url_elec_comp),
