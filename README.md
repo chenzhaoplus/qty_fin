@@ -1,7 +1,7 @@
 # qty_fin
 ***Stock Statistics***
 
-![image](https://note.youdao.com/yws/public/resource/635a3b759d31135cbd682b30242bbf8b/xmlnote/AB1E7810B61141E2AC875CFB34079CDB/26947)
+![image](http://note.youdao.com/yws/public/resource/635a3b759d31135cbd682b30242bbf8b/xmlnote/AB1E7810B61141E2AC875CFB34079CDB/26947)
 
 
 # boot in ide
@@ -15,11 +15,11 @@ then visit http://localhost:9999
 # publish in docker
 Dockerfile and your code
 
-![image](https://note.youdao.com/yws/public/resource/635a3b759d31135cbd682b30242bbf8b/xmlnote/FC059B7230644C3FBDE606EAA02841C2/26941)
+![image](http://note.youdao.com/yws/public/resource/635a3b759d31135cbd682b30242bbf8b/xmlnote/FC059B7230644C3FBDE606EAA02841C2/26941)
 
 put code in the folder 'app'
 
-![image](https://note.youdao.com/yws/public/resource/635a3b759d31135cbd682b30242bbf8b/xmlnote/07528F265A584D2A9872F966FEF28068/26943)
+![image](http://note.youdao.com/yws/public/resource/635a3b759d31135cbd682b30242bbf8b/xmlnote/07528F265A584D2A9872F966FEF28068/26943)
 
 docker build
 
